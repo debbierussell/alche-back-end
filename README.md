@@ -1,1 +1,19 @@
 # alche-back-end
+
+This repository contains back-end API projects for ALX.
+
+## Project: 0. Gather data from an API
+
+### Description
+A Python script that fetches and displays TODO list progress for a given employee ID from the JSONPlaceholder API.
+
+### Usage
+```bash
+./api/@-gather_data_from_an_API.py <employee_id>
+Requirements
+Python 3.4+
+
+requests module (pip3 install requests)
+
+Author
+debbierussell
