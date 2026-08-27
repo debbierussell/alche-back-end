@@ -6,6 +6,7 @@ Usage: python3 2-export_to_JSON.py <employee_id>
 """
 
 import json
+import os
 import sys
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
@@ -52,8 +53,9 @@ def export_todo_json(employee_id):
     # Create the final JSON structure
     output_data = {str(employee_id): task_list}
 
-    # Write to file (compact JSON, no indentation)
-    filename = "{}.json".format(employee_id)
+    # Write the file to the same directory as this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(script_dir, "{}.json".format(employee_id))
     with open(filename, "w") as f:
         json.dump(output_data, f)
 
