@@ -29,12 +29,14 @@ def export_todo_json(employee_id):
 
     except HTTPError as e:
         if e.code == 404:
-            print("Error: Employee with ID {} not found.".format(employee_id))
+            print("Error: Employee with ID {} not found."
+                  .format(employee_id))
         else:
             print("HTTP error: {}".format(e.code))
         sys.exit(1)
     except URLError:
-        print("Error: Could not reach the API. Check your internet connection.")
+        print("Error: Could not reach the API. "
+              "Check your internet connection.")
         sys.exit(1)
 
     # Build the task list
@@ -50,10 +52,10 @@ def export_todo_json(employee_id):
     # Create the final JSON structure
     output_data = {str(employee_id): task_list}
 
-    # Write to file
+    # Write to file (no indent to match the example)
     filename = "{}.json".format(employee_id)
     with open(filename, "w") as f:
-        json.dump(output_data, f, indent=4)  # indent for readability (optional)
+        json.dump(output_data, f)
 
 
 if __name__ == "__main__":
