@@ -6,8 +6,8 @@ Usage: python3 2-export_to_JSON.py <employee_id>
 """
 
 import json
-import os
 import sys
+from collections import OrderedDict
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
@@ -40,22 +40,21 @@ def export_todo_json(employee_id):
               "Check your internet connection.")
         sys.exit(1)
 
-    # Build the task list with keys in the expected order
+    # Build the task list with keys in the exact required order
     task_list = []
     for todo in todos:
-        task_dict = {
-            "task": todo.get("title"),
-            "completed": todo.get("completed"),
-            "username": username
-        }
+        task_dict = OrderedDict([
+            ("task", todo.get("title")),
+            ("completed", todo.get("completed")),
+            ("username", username)
+        ])
         task_list.append(task_dict)
 
-    # Create the final JSON structure
-    output_data = {str(employee_id): task_list}
+    # Top-level structure
+    output_data = OrderedDict([(str(employee_id), task_list)])
 
-    # Write the file to the same directory as this script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(script_dir, "{}.json".format(employee_id))
+    # Write to current working directory (not script directory)
+    filename = "{}.json".format(employee_id)
     with open(filename, "w") as f:
         json.dump(output_data, f)
 
