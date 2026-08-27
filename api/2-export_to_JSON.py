@@ -39,7 +39,7 @@ def export_todo_json(employee_id):
               "Check your internet connection.")
         sys.exit(1)
 
-    # Build the task list
+    # Build the task list with keys in the expected order
     task_list = []
     for todo in todos:
         task_dict = {
@@ -52,7 +52,7 @@ def export_todo_json(employee_id):
     # Create the final JSON structure
     output_data = {str(employee_id): task_list}
 
-    # Write to file (no indent to match the example)
+    # Write to file (compact JSON, no indentation)
     filename = "{}.json".format(employee_id)
     with open(filename, "w") as f:
         json.dump(output_data, f)
